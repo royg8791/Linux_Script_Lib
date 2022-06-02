@@ -1,0 +1,48 @@
+fdisk -l [<DISK>]
+pvresize <DISK>
+vgextend <VG_NAME> <DISK>
+lvextend <LV_PATH> <DISK>
+resize2fs <LV_PATH>/<MNT_PATH> OR xfs_growfs <LV_PATH>/<MNT_PATH>
+
+
+pvs - pvdisplay
+vgs - vgdisplay
+lvs - lvdisplay
+
+
+******* example: *******
+pvresize	/dev/sdb
+vgextend	costperfVG		/dev/sdb
+lvextend	/dev/costperfVG/data	/dev/sdb
+xfs_growfs	/costperf/data
+
+
+
+#Extend Exixt Volume
+
+1. parted -a optimal /dev/sdb
+2.  mklabel msdos  or gpt
+3. mkpart primary 1 -1
+4. set 1 lvm on
+5. q
+6. pvcreate /dev/sdb1
+7. vgs
+8. vgextend share  /dev/sdc1
+9. lvs
+10. lvextend -l +100%FREE /dev/share/osbprd share 
+	 מבצעים "XFS "במידה ושרת ישן ואין    
+	1. resize2fs /dev/vg_oem/lv_root
+
+
+#create new volume
+1-7
+8.vgcreate vg_data01 /dev/mapper/mpathc1
+9.lvcreate --name lv_data01 -l 100%FREE vg_mksmprd
+10.mkfs.xfs /dev/ vg_mksmprd/lv_app
+11.mkdir /data01
+12.mount  /dev/vg_data01/lv_data01 /data01
+13.vi /etc/fstab
+add mount line for the new lv_data01
+/dev/vg_data01/lv_data01    /data01                   xfs     defaults        0 0
+
+.lvcreate --name lv_data -L 60GB vg_data01
