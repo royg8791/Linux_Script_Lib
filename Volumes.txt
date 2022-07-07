@@ -17,6 +17,9 @@ lvextend	/dev/costperfVG/data	/dev/sdb
 xfs_growfs	/costperf/data
 
 
+# ReScan disks on machine
+echo 1 > /sys/block/sdX/device/rescan
+
 
 #Extend Exixt Volume
 
