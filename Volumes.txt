@@ -49,3 +49,24 @@ add mount line for the new lv_data01
 /dev/vg_data01/lv_data01    /data01                   xfs     defaults        0 0
 
 .lvcreate --name lv_data -L 60GB vg_data01
+
+
+
+## MULTIPATH - (volume name is "test_vol" for this example)
+rescan-scsi-bus.sh -a
+multipath -f <<<mpathb>>>		# "mpathb" is the name given to the new volume/instance
+					  in the file /etc/multipath/bindings
+nano /etc/multipath/bindings		# change name of the new volume to "test_vol"
+multipath
+multipath -ll | less			# see the new multipath volume
+pvs
+pvcreate /dev/mapper/test_vol		# create the phisical volume (PV)
+pvs
+vgextend/vgcreate ...			# create or extent volume group
+	vgextend test_vol_vg /dev/mapper/test_vol
+lvextend/lvcreate ...			# create or extend logical volume
+	lvextend -l +100%FREE test_vol_vg/test_vol_lv (vg name/lv name)
+xfs_growfs /path/to/mount
+OR					# resize the file system
+resize2fs /path/to/mount
+df -h					# see the change in size in the FS
