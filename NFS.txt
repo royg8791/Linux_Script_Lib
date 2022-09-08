@@ -5,7 +5,7 @@ NFS Process
 2. create SHARE-POINT - mkdir /path/to/shared/dir
 3. edit /etc/exports for permanent share:
 	/path/to/shared/dir	{CLIENT-IP/DNS}(rw,sync,no_root_squash)
-4. run command - exportfss -a
+4. run command - exportfs -a
 5. run command - systemctl restart nfs-server/nfs-kernel-server
 
 # CLIENT
