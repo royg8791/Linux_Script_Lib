@@ -1,3 +1,14 @@
+# dnf clean all
+	Updating Subscription Management repositories.
+	55 files removed
+# rm -frv /var/cache/dnf
+	removed directory '/var/cache/dnf'
+# subscription-manager refresh
+	1 local certificate has been deleted.
+	All local data refreshed
+# dnf update
+
+
 ### nano /etc/yum.repos.d/rhel.repo
 
 [base]

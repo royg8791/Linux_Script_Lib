@@ -89,3 +89,32 @@ On_IBlue='\033[0;104m'    # Blue
 On_IPurple='\033[0;105m'  # Purple
 On_ICyan='\033[0;106m'    # Cyan
 On_IWhite='\033[0;107m'   # Whit
+
+# exit message with error code
+function error_exit () {
+  exit_code=$1
+  message=$2
+  if [[ $exit_code -eq 2 ]]; then
+    echo -e "${Red}ERROR:${Color_Off} $message\n"
+  elif [[ $exit_code -eq 1 ]]; then
+    echo -e "${Yellow}ERROR:${Color_Off} $message\n"
+  fi
+  exit $exit_code
+}
+
+function test_volumes () {
+  # gather data
+  volumes=$(df -h | grep "^/dev/")
+  # change "Internal Field Seperator" to be New-Line "\n"
+  IFS=$'\n'
+
+  for i in $volumes; do
+    percentage=$(awk '{print $5}' <<< $i | sed 's/%//')
+    vol_path=$(awk '{print $NF}' <<< $i)
+    if [[ $percentage -ge 95 ]]; then
+      error_exit 2 "${percentage}% Usage for [${vol_path}]"
+    elif [[ $percenyage -ge 90 ]]; then
+      error_exit 1 "${percentage}% Usage for [${vol_path}]"
+    fi
+  done
+}
