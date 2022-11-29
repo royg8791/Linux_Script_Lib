@@ -1,1 +1,4 @@
 run.tournament.org.il
+
+Packages for Linux:
+    https://pkgs.org/
