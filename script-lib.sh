@@ -118,3 +118,23 @@ function test_volumes () {
     fi
   done
 }
+
+function ftp_script_for_linux () {
+  HOST="infdev"
+  USER="informatica01"
+  PASSWORD="Infor1q2w3e4r5t6y7u8i9o0p"
+
+  DESTINATION='\55682_NAYAX_IICS\'
+
+  SOURCE_PATH="/home/Informatica/INT/55682_NAYAX/EMAIL/"
+  FILES="*.txt"
+
+  cd $SOURCE_PATH
+  ftp -inv $HOST <<EOF
+
+  user $USER $PASSWORD
+  cd $DESTINATION
+  mput $FILES
+  bye
+EOF
+}
