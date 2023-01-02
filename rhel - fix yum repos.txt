@@ -13,18 +13,18 @@
 
 [base]
 name=CentOS $releasever – Base
-baseurl=http://mirror.centos.org/centos/7/os/$basearch/
+baseurl=http://mirror.centos.org/centos/8-stream/os/$basearch/os/
 gpgcheck=0
 enabled=1
 
 [updates]
-name=CentOS $releasever – Updates
-baseurl=http://mirror.centos.org/centos/7/updates/$basearch/
+name=CentOS $releasever – AppStream
+baseurl=http://mirror.centos.org/centos/8-stream/AppStream/$basearch/os/
 gpgcheck=0
 enabled=1
 
 [extras]
 name=CentOS $releasever – Extras
-baseurl=http://mirror.centos.org/centos/7/extras/$basearch/
+baseurl=http://mirror.centos.org/centos/8-stream/extras/$basearch/os/
 gpgcheck=0
 enabled=1
